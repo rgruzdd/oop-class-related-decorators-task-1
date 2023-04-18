@@ -9,6 +9,7 @@ class Vehicle(ABC):
         self.year_of_issue = year_of_issue
         self.base_price = base_price
         self.mileage = mileage
+        self.purchase_price = self.purchase_price(self)
 
     @abstractmethod
     def wheels_num(self) -> int:
@@ -21,12 +22,13 @@ class Vehicle(ABC):
     def is_motorcycle(self) -> bool:
         return isinstance(self, Motorcycle) == True
 
+    @staticmethod
     def purchase_price(self) -> float:
-        if self.base_price < 100_000:
+        purchase_price = self.base_price - 0.1 * self.mileage
+        if purchase_price < 100_000:
             return float(100_000)
         else:
-            return self.base_price - 0.1 * self.mileage
-
+            return purchase_price
 
 # Don't change class implementation
 class Car(Vehicle):
